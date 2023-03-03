@@ -109,6 +109,7 @@ h2 {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: 0.05em;
+    line-height: 125.22%;
 }
 
 .section--main--top {
@@ -158,18 +159,21 @@ h2 {
     padding: 5px 10px;
     margin-bottom: 15px;
 }
+
 .chat {
     display: flex;
     gap: 10px;
     margin-bottom: 60px;
 
 }
+
 .chat p:first-child {
     margin-top: 10px;
     font-family: 'Puritan', serif;
     font-weight: 700;
     font-size: 20px;
 }
+
 .chat p:last-child {
     padding: 10px;
     background-color: #D2E7D8;
@@ -180,4 +184,31 @@ h2 {
     font-size: 12px;
     line-height: 143%;
     letter-spacing: 0.02em;
+}
+
+.read-more {
+    margin-top: 10px;
+    font-family: 'Puritan', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-decoration-line: underline;
+    color: #9B8978;
+    cursor: pointer;
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -moz-box;
+    display: -webkit-box;
+    line-clamp: 3;
+    box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.description-more {
+    overflow: unset;
 }

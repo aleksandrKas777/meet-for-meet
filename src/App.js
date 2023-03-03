@@ -74,6 +74,7 @@ function App() {
     const [data, setData] = useState(null)
     const [timeRoute, setTimeRoute] = useState(null)
     const [isErrorPosition, setIsErrorPosition] = useState(false)
+    const [isMoreContent, setIsMoreContent] = useState(false)
 
     const successPosition = (e) => getDistanceAndTime(e, {
         latitude: data?.latitude,
@@ -188,7 +189,8 @@ function App() {
                 </div>
 
                 <h4 style={{marginBottom: '10px'}}>Meeting description:</h4>
-                <p>{data?.description || '-'}</p>
+                <p className={`${isMoreContent ? 'description-more' :'description'}`}>{data?.description}</p>
+                {!isMoreContent && <p className={'read-more'} onClick={() => setIsMoreContent(true)}>Read more</p>}
 
                 <h4 style={{marginBottom: '10px'}}>Number of participants:</h4>
                 {/*<p>{data?.description || ''}</p>*/}
