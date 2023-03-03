@@ -42,10 +42,13 @@ const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
 const getDistanceAndTime = async (coordsOrigin, coordsDestination, setTimeRoute) => {
 
     const result = await getDistanceFromLatLonInKm(coordsOrigin.coords.latitude, coordsOrigin.coords.longitude, coordsDestination.latitude, coordsDestination.longitude)
-    const time = result / 4
-    const hour = Math.floor(time)
-    const min = Math.round(time % 1 * 100)
-    return setTimeRoute(`${hour > 0 ? hour + 'h' : ''} ${min > 0 ? min + 'min' : ''}`)
+    // const time = result / 4
+    // const hour = Math.floor(time)
+    // const min = Math.round(time % 1 * 100)
+    // return setTimeRoute(`${hour > 0 ? hour + 'h' : ''} ${min > 0 ? min + 'min' : ''}`)
+    const km = Math.floor(result)
+    const m = Math.round(result % 1 * 100)
+    return setTimeRoute(`${km > 0 ? km + 'km' : ''} ${m > 0 ? m + 'm' : ''}`)
     // eslint-disable-next-line no-undef
     // const origin = new google.maps.LatLng(coordsOrigin.coords.latitude)
     // // eslint-disable-next-line no-undef
@@ -131,32 +134,41 @@ function App() {
                         <h2>{data?.nameOfEvent || ''}</h2>
                         {data?.forAdultsOnly && <span className={'adult'}>18+</span>}
                         <p>
+                            {/*<svg width="24" height="24" viewBox="0 0 24 24" fill="none"*/}
+                            {/*     xmlns="http://www.w3.org/2000/svg">*/}
+                            {/*    <path d="M8 2V5" stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10"*/}
+                            {/*          strokeLinecap="round" strokeLinejoin="round"/>*/}
+                            {/*    <path d="M16 2V5" stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10"*/}
+                            {/*          strokeLinecap="round" strokeLinejoin="round"/>*/}
+                            {/*    <path d="M3.5 9.09009H20.5" stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10"*/}
+                            {/*          strokeLinecap="round" strokeLinejoin="round"/>*/}
+                            {/*    <path*/}
+                            {/*        d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"*/}
+                            {/*        stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"*/}
+                            {/*        strokeLinejoin="round"/>*/}
+                            {/*    <path d="M15.6947 13.7H15.7037" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"*/}
+                            {/*          strokeLinejoin="round"/>*/}
+                            {/*    <path d="M15.6947 16.7H15.7037" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"*/}
+                            {/*          strokeLinejoin="round"/>*/}
+                            {/*    <path d="M11.9955 13.7H12.0045" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"*/}
+                            {/*          strokeLinejoin="round"/>*/}
+                            {/*    <path d="M11.9955 16.7H12.0045" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"*/}
+                            {/*          strokeLinejoin="round"/>*/}
+                            {/*    <path d="M8.29431 13.7H8.30329" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"*/}
+                            {/*          strokeLinejoin="round"/>*/}
+                            {/*    <path d="M8.29431 16.7H8.30329" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"*/}
+                            {/*          strokeLinejoin="round"/>*/}
+                            {/*</svg>*/}
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 2V5" stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10"
-                                      strokeLinecap="round" strokeLinejoin="round"/>
-                                <path d="M16 2V5" stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10"
-                                      strokeLinecap="round" strokeLinejoin="round"/>
-                                <path d="M3.5 9.09009H20.5" stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10"
-                                      strokeLinecap="round" strokeLinejoin="round"/>
                                 <path
-                                    d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-                                    stroke="#9B8978" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"
-                                    strokeLinejoin="round"/>
-                                <path d="M15.6947 13.7H15.7037" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"
-                                      strokeLinejoin="round"/>
-                                <path d="M15.6947 16.7H15.7037" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"
-                                      strokeLinejoin="round"/>
-                                <path d="M11.9955 13.7H12.0045" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"
-                                      strokeLinejoin="round"/>
-                                <path d="M11.9955 16.7H12.0045" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"
-                                      strokeLinejoin="round"/>
-                                <path d="M8.29431 13.7H8.30329" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"
-                                      strokeLinejoin="round"/>
-                                <path d="M8.29431 16.7H8.30329" stroke="#9B8978" strokeWidth="2" strokeLinecap="round"
+                                    d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z"
+                                    stroke="#9B8978" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M15.7099 15.18L12.6099 13.33C12.0699 13.01 11.6299 12.24 11.6299 11.61V7.51001"
+                                      stroke="#9B8978" strokeWidth="1.5" strokeLinecap="round"
                                       strokeLinejoin="round"/>
                             </svg>
-                            {`${new Date(data?.calendarStartDate).toLocaleDateString().slice(0, 5)} - ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}
+                            {`Start: ${new Date(data?.calendarStartDate).toLocaleDateString().slice(0, 5)} ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}
                         </p>
 
                         <p>
@@ -169,7 +181,7 @@ function App() {
                                       stroke="#9B8978" strokeWidth="1.5" strokeLinecap="round"
                                       strokeLinejoin="round"/>
                             </svg>
-                            {`${new Date(data?.calendarEndDate).toLocaleDateString().slice(0, 5)} - ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}
+                            {`End: ${new Date(data?.calendarEndDate).toLocaleDateString().slice(0, 5)} ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}
                         </p>
 
                     </div>
