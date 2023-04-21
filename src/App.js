@@ -25,6 +25,7 @@ const deg2rad = (deg) => {
     return deg * (Math.PI / 180)
 }
 
+
 const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Radius of the earth in km
     const dLat = deg2rad(lat2 - lat1);  // deg2rad below
@@ -36,6 +37,17 @@ const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     ;
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
+}
+
+const getDateTimeMeeting = (strDate) => {
+    const date = new Date(strDate)
+    
+    const day = date.getDate()
+    const month = date.toLocaleString('en-us', {month: 'short'})
+    const hours = date.getHours()
+    const minutes = ('0' + date.getMinutes()).slice(-2)
+    return `${day} ${month} at ${hours}:${minutes}`
+    // {` ${new Date(data?.calendarStartDate).toLocaleDateString().slice(0, 5)} at ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}
 }
 
 
@@ -98,6 +110,7 @@ function App() {
         if (!data) return
 
         const geo = navigator.geolocation
+
         if (!geo) {
             errorPosition()
             return
@@ -130,19 +143,19 @@ function App() {
             </ul>
             <section className={'section--main'}>
                 <div className={'section--main--top'}>
-                    <img src={data?.placeImage || null} alt={'slider'}/>
+                    <img src={data?.meetingPhoto || null} alt={'meeting photo'}/>
                     <div>
                         <h2>{data?.nameOfEvent || ''}</h2>
                         {data?.forAdultsOnly && <span className={'adult'}>18+</span>}
 
                         <p>
                             <span className={'section--main-date-bold'}>Start:</span>
-                            <span>{` ${new Date(data?.calendarStartDate).toLocaleDateString().slice(0, 5)} at ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}</span>
+                            <span>{getDateTimeMeeting(data?.calendarStartDate)}</span>
                         </p>
 
                         <p>
                             <span className={'section--main-date-bold'}>End:</span>
-                            <span>{`${new Date(data?.calendarEndDate).toLocaleDateString().slice(0, 5)} at ${new Date(data?.calendarStartDate).toLocaleTimeString().slice(0, 5)}`}</span>
+                            <span>{getDateTimeMeeting(data?.calendarEndDate)}</span>
                         </p>
 
 
@@ -150,8 +163,9 @@ function App() {
                 </div>
 
                 <h4 style={{marginBottom: '10px'}}>Meeting description:</h4>
-                <p className={`${isMoreContent ? 'description-more' : 'description'}`}>{data?.description}</p>
-                {!isMoreContent && <p className={'read-more'} onClick={() => setIsMoreContent(true)}>Read more</p>}
+                <p className={'description'}>{data?.description}</p>
+                {/*<p className={`${isMoreContent ? 'description-more' : 'description'}`}>{data?.description}</p>*/}
+                {/*{!isMoreContent && <p className={'read-more'} onClick={() => setIsMoreContent(true)}>Read more</p>}*/}
 
                 <h4 style={{marginBottom: '10px'}}>Number of participants:</h4>
                 {/*<p>{data?.description || ''}</p>*/}
